@@ -1,43 +1,80 @@
-# Mac-imbox
+# Mac-imbox 消息板
 
-把常用聊天应用收进 Mac 菜单栏。左键展开面板，右键直达第一个有未读消息的应用。
+在 Mac 菜单栏看一眼，就知道几个聊天应用一共有多少条未读。左键展开选应用，右键直接打开第一个有未读的应用。
 
-Keep your messaging apps together in the Mac menu bar. Click to choose an app, or right-click to open the first one with unread messages.
+**[下载 Mac-imbox v1.14](https://github.com/uniquechao/Mac-imbox/releases/download/v1.14/Mac-imbox-1.14-universal.dmg)** · [English guide](README.en.md) · [所有版本](https://github.com/uniquechao/Mac-imbox/releases)
 
-[下载 macOS 安装包 · Download for Mac](https://github.com/uniquechao/Mac-imbox/releases/download/v1.14/Mac-imbox-1.14-universal.dmg) · [版本与校验文件 / Releases](https://github.com/uniquechao/Mac-imbox/releases)
+适用于 macOS 14 及以上，支持 Apple 芯片和 Intel Mac。
 
-[中文使用指南](#中文使用指南) · [English guide](#english-guide)
+<img src="docs/images/quick-tour.gif" width="306" alt="菜单栏显示 10 条未读。点击展开后，飞书有 1 条，企业微信有 9 条。点击外部收起面板。">
 
-![操作示意：左键展开，两个应用分别有 9 和 1 条未读，顶部显示 10；右键打开排在前面的应用。Illustrated demo: two apps with 9 and 1 unread contribute to a total of 10.](docs/images/quick-tour.gif)
+## 第一次使用
 
-## 中文使用指南
+1. **安装消息板**　打开下载的 DMG，把「消息板」拖进「应用程序」，再从那里启动。
+2. **加入聊天应用**　点击菜单栏的消息板图标，选「导入 IM」一次加入已安装的微信、企业微信、飞书、钉钉等应用。想自己选，就点 **＋**。
+3. **显示未读数**　如果看到「无法读取未读数」，点「打开权限设置」并允许「消息板」。约 3 秒后，面板会显示各应用的角标，菜单栏会显示总数。
 
-**更新与权限。** 先从「…」菜单退出旧版，再把新版「消息板」拖入「应用程序」并替换，从「应用程序」重新打开。v1.14 使用临时签名，未经 Apple 公证，首次打开时 macOS 可能提示无法验证开发者。如果更新后看到「无法读取未读数」，请到「系统设置 → 隐私与安全性 → 设备控制和数据访问」（部分系统叫「辅助功能」），移除旧「消息板」记录，用 **＋** 添加当前的 `/Applications/消息板.app` 并开启。约 3 秒后角标会自动刷新。各聊天应用原有的通知设置可以保持原样。
+点击面板上的 **？** 可以重看这三个操作提示。
 
-1. **安装并打开。** 如果你拿到的是试用版 DMG，双击镜像，把「消息板」拖入「应用程序」，然后从那里启动。点屏幕顶部的消息板图标即可展开面板。
-2. **加入聊天应用。** 点「导入 IM」一次加入本机已安装的受支持应用，例如微信、企业微信、飞书和钉钉。也可以点 **＋** 手动选择。已加入的应用退出后会从面板隐藏，下次启动时自动出现。
-3. **启用未读角标。** 如果看到「无法读取未读数」，点「打开权限设置」，在 macOS 的「设备控制和数据访问」或「辅助功能」中允许「消息板」。回到面板等待约 3 秒，应用角标和顶部总数就会刷新。权限只需授予消息板。
-4. **按需调整。** 长按面板中的应用图标，等图标晃动后点左上角 **×**，即可从消息板移除并恢复它的原菜单栏图标。点 **?** 可以随时重看使用指引。
+<details>
+<summary>观看实录 · 面板里的三步指引</summary>
 
-| 点击哪里 | 左键 | 右键 / 双指点按 |
-| --- | --- | --- |
-| 顶部消息板图标 | 展开或收起面板 | 按面板顺序打开首个有未读的应用；没有可读数字时展开面板 |
-| 面板里的应用图标 | 打开应用并切到前台 | 在原地弹出快捷菜单，可打开、移除；支持的应用还可直接打开设置 |
+<img src="docs/images/first-steps.gif" width="306" alt="本机实录：从应用面板打开问号，翻看加入应用、左键展开和右键直达未读的提示">
 
-**为什么有消息却没有数字？** 消息板读取应用提供给 Dock 或可访问菜单栏项的数字。如果应用只闪烁图标，或只在聊天窗口内显示未读数，面板上的图标会保持空白。若原应用的 Dock 图标也没有数字，可检查「系统设置 → 通知 → 对应应用」中的「允许通知」和「标记应用程序图标」。
+</details>
 
-## English guide
+### 手动加入一个应用
 
-**Updating and permissions.** Quit the old version from the **…** menu, replace **消息板** in Applications, then launch the installed copy. Version 1.14 is ad-hoc signed and has not been notarized by Apple. macOS may warn that it cannot verify the developer on first launch. If unread counts become unavailable after updating, open **System Settings → Privacy & Security → Accessibility** (the name varies by macOS version). Remove the old entry, add the current `/Applications/消息板.app` with **+**, and enable it. Badges refresh within about three seconds. You can leave your messaging apps’ notification preferences as they are.
+点 **＋**，在「应用程序」中选中目标，再点 **打开（Open）**。下面用 Clash Party 演示，最后一行就是刚加入的图标。
 
-1. **Install and open.** If you received a trial DMG, open it, drag **消息板** into **Applications**, and launch it from there. Click its icon at the top of your screen to open the panel.
-2. **Add your apps.** Choose **导入 IM** (Import IM) to add supported messaging apps already installed on your Mac, including WeChat, WeCom, Feishu and DingTalk. Use **＋** to pick others manually. Apps disappear from the panel when they quit and return when you launch them again.
-3. **Enable unread counts.** If the panel shows **无法读取未读数** (Unable to read unread counts), click **打开权限设置** (Open permission settings) and grant **消息板** Accessibility access in macOS. The panel badges and menu bar total refresh within about three seconds.
-4. **Manage the panel.** Press and hold an app icon until it jiggles, then click **×** to remove it and restore its original menu bar icon. Click **?** to replay the guide.
+<img src="docs/images/add-an-app.gif" width="440" alt="选择 Clash Party 并加入面板">
 
-| Where | Click | Right-click / two-finger click |
-| --- | --- | --- |
-| Mac-imbox menu bar icon | Open or close the panel | Open the first app in panel order with unread messages; open the panel if no count is available |
-| App icon inside the panel | Bring the app to the foreground | Open a menu beside the icon to launch or remove the app, or open its settings when supported |
+## 平时怎么用
 
-**Missing a badge?** Mac-imbox reads numeric counts exposed by an app through the Dock or an accessible menu bar item. Apps that only flash their icon or show unread counts inside a chat window may leave the badge blank. If the original Dock badge is also missing, check **System Settings → Notifications → the app** and look for **Allow notifications** and **Badge application icon**.
+| 我想… | 怎么做 |
+| --- | --- |
+| 看哪些应用有未读 | 左键点菜单栏的消息板图标。点面板外的空白处即可收起。 |
+| 直接处理未读 | 右键点菜单栏的消息板图标，打开面板中第一个有数字角标的应用。没有可读数字时会展开面板。 |
+| 打开指定应用 | 在面板里左键点它的图标。应用退出后会从面板隐藏，下次启动时自动出现。 |
+| 查看一个应用的快捷操作 | 在面板里右键点它的图标。菜单会在原地展开，可用命令随应用而异。 |
+| 恢复应用原来的菜单栏图标 | 长按面板里的应用图标，等图标晃动后点左上角 **×**。点 **✓** 结束编辑。 |
+
+<details>
+<summary>观看实录 · 长按图标进入编辑</summary>
+
+<img src="docs/images/edit-apps.gif" width="306" alt="本机实录：长按图标进入编辑，出现移除按钮，点击对勾结束编辑">
+
+</details>
+
+### 右键直达第一个未读应用
+
+飞书有 **1** 条未读，企业微信有 **9** 条。右键点击菜单栏显示 **10** 的消息板图标，排在前面的飞书随即切到前台。
+
+<img src="docs/images/open-first-unread.gif" width="440" alt="右键消息板图标后飞书切到前台">
+
+## 安装与未读角标常见问题
+
+<details>
+<summary>更新后看不到未读数，怎么恢复？</summary>
+
+1. 从消息板的 **… → 退出消息板** 退出旧版，用新版替换「应用程序」里的旧版，再启动。
+2. 若仍提示「无法读取未读数」，打开 **系统设置 → 隐私与安全性 → 辅助功能**。部分系统显示为「设备控制和数据访问」。
+3. 移除旧的「消息板」授权记录，点 **＋** 添加并开启当前的 <code>/Applications/消息板.app</code>。约 3 秒后角标会自动刷新。
+
+</details>
+
+<details>
+<summary>只有某个应用没有数字，怎么看？</summary>
+
+先看这个应用自己的 Dock 图标。消息板能读取 Dock 或菜单栏提供的数字。如果应用只闪烁图标，或只在聊天窗口里显示未读，面板就会留空。
+
+如果希望原应用显示 Dock 角标，可在 **系统设置 → 通知 → 对应应用** 检查「允许通知」和「标记应用程序图标」。
+
+</details>
+
+<details>
+<summary>首次打开时，为什么 macOS 提示无法验证开发者？</summary>
+
+v1.14 使用临时签名，未经 Apple 公证。可以在[版本页面](https://github.com/uniquechao/Mac-imbox/releases/tag/v1.14)找到安装包和 SHA-256 校验文件。
+
+</details>
