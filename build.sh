@@ -4,7 +4,7 @@ cd "$(dirname "$0")"
 swift build -c release
 bundle="消息板.app/Contents"
 mkdir -p "$bundle/MacOS" "$bundle/Resources"
-cp Assets/AppIcon.icns "$bundle/Resources/"
+cp Assets/AppIcon.icns Assets/PrivacyInfo.xcprivacy "$bundle/Resources/"
 cp "$(swift build -c release --show-bin-path)/MessageBoard" "$bundle/MacOS/"
 cat > "$bundle/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>

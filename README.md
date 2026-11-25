@@ -78,3 +78,5 @@
 v1.14 使用临时签名，未经 Apple 公证。可以在[版本页面](https://github.com/uniquechao/Mac-imbox/releases/tag/v1.14)找到安装包和 SHA-256 校验文件。
 
 </details>
+
+[隐私政策](docs/privacy.md) · [联系开发者](docs/support.md)

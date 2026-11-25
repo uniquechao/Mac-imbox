@@ -17,7 +17,9 @@ mkdir "$stage/volume"
 app="$stage/volume/消息板.app"
 ditto 消息板.app "$app"
 cp "$bin/MessageBoard" "$app/Contents/MacOS/MessageBoard"
-lipo -verify_arch arm64 x86_64 "$app/Contents/MacOS/MessageBoard"
+for arch in arm64 x86_64; do
+    xcrun lipo -archs "$app/Contents/MacOS/MessageBoard" | tr ' ' '\n' | grep -Fx "$arch" >/dev/null
+done
 codesign --force --options runtime --timestamp --sign "$DEVELOPER_ID_APPLICATION" "$app"
 codesign --verify --strict "$app"
 ln -s /Applications "$stage/volume/Applications"

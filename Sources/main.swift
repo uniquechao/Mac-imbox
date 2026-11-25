@@ -310,6 +310,10 @@ struct Panel: View {
                     Text("Keep your messaging apps in the menu bar, see their combined unread count, and jump to an app with unread messages.")
                         .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
                     Text("开发者  xschao")
+                    HStack {
+                        Link("隐私政策", destination: URL(string: "https://github.com/uniquechao/Mac-imbox/blob/main/docs/privacy.md")!)
+                        Link("使用帮助", destination: URL(string: "https://github.com/uniquechao/Mac-imbox/blob/main/docs/support.md")!)
+                    }
                     Link("GitHub: uniquechao/Mac-imbox", destination: URL(string: "https://github.com/uniquechao/Mac-imbox")!)
                 }.frame(maxWidth: .infinity, alignment: .leading)
             } else {

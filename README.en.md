@@ -78,3 +78,5 @@ To enable an app’s Dock badge, check **Allow notifications** and **Badge appli
 Version 1.14 is ad-hoc signed and has not been notarized by Apple. The [release page](https://github.com/uniquechao/Mac-imbox/releases/tag/v1.14) includes the DMG and its SHA-256 checksum.
 
 </details>
+
+[Privacy policy](docs/privacy.md) · [Contact the developer](docs/support.md)
