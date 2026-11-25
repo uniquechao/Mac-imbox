@@ -4,7 +4,7 @@
 
 Keep your messaging apps together in the Mac menu bar. Click to choose an app, or right-click to open the first one with unread messages.
 
-[下载 macOS 安装包 · Download for Mac](https://github.com/uniquechao/Mac-imbox/releases/download/v1.13/Mac-imbox-1.13-universal.dmg) · [版本与校验文件 / Releases](https://github.com/uniquechao/Mac-imbox/releases)
+[下载 macOS 安装包 · Download for Mac](https://github.com/uniquechao/Mac-imbox/releases/download/v1.14/Mac-imbox-1.14-universal.dmg) · [版本与校验文件 / Releases](https://github.com/uniquechao/Mac-imbox/releases)
 
 [中文使用指南](#中文使用指南) · [English guide](#english-guide)
 
@@ -12,7 +12,7 @@ Keep your messaging apps together in the Mac menu bar. Click to choose an app, o
 
 ## 中文使用指南
 
-**更新与权限。** 先从「…」菜单退出旧版，再把新版「消息板」拖入「应用程序」并替换，从「应用程序」重新打开。v1.13 使用临时签名，未经 Apple 公证，首次打开时 macOS 可能提示无法验证开发者。如果更新后看到「无法读取未读数」，请到「系统设置 → 隐私与安全性 → 设备控制和数据访问」（部分系统叫「辅助功能」），移除旧「消息板」记录，用 **＋** 添加当前的 `/Applications/消息板.app` 并开启。约 3 秒后角标会自动刷新。各聊天应用原有的通知设置可以保持原样。
+**更新与权限。** 先从「…」菜单退出旧版，再把新版「消息板」拖入「应用程序」并替换，从「应用程序」重新打开。v1.14 使用临时签名，未经 Apple 公证，首次打开时 macOS 可能提示无法验证开发者。如果更新后看到「无法读取未读数」，请到「系统设置 → 隐私与安全性 → 设备控制和数据访问」（部分系统叫「辅助功能」），移除旧「消息板」记录，用 **＋** 添加当前的 `/Applications/消息板.app` 并开启。约 3 秒后角标会自动刷新。各聊天应用原有的通知设置可以保持原样。
 
 1. **安装并打开。** 如果你拿到的是试用版 DMG，双击镜像，把「消息板」拖入「应用程序」，然后从那里启动。点屏幕顶部的消息板图标即可展开面板。
 2. **加入聊天应用。** 点「导入 IM」一次加入本机已安装的受支持应用，例如微信、企业微信、飞书和钉钉。也可以点 **＋** 手动选择。已加入的应用退出后会从面板隐藏，下次启动时自动出现。
@@ -28,7 +28,7 @@ Keep your messaging apps together in the Mac menu bar. Click to choose an app, o
 
 ## English guide
 
-**Updating and permissions.** Quit the old version from the **…** menu, replace **消息板** in Applications, then launch the installed copy. Version 1.13 is ad-hoc signed and has not been notarized by Apple. macOS may warn that it cannot verify the developer on first launch. If unread counts become unavailable after updating, open **System Settings → Privacy & Security → Accessibility** (the name varies by macOS version). Remove the old entry, add the current `/Applications/消息板.app` with **+**, and enable it. Badges refresh within about three seconds. You can leave your messaging apps’ notification preferences as they are.
+**Updating and permissions.** Quit the old version from the **…** menu, replace **消息板** in Applications, then launch the installed copy. Version 1.14 is ad-hoc signed and has not been notarized by Apple. macOS may warn that it cannot verify the developer on first launch. If unread counts become unavailable after updating, open **System Settings → Privacy & Security → Accessibility** (the name varies by macOS version). Remove the old entry, add the current `/Applications/消息板.app` with **+**, and enable it. Badges refresh within about three seconds. You can leave your messaging apps’ notification preferences as they are.
 
 1. **Install and open.** If you received a trial DMG, open it, drag **消息板** into **Applications**, and launch it from there. Click its icon at the top of your screen to open the panel.
 2. **Add your apps.** Choose **导入 IM** (Import IM) to add supported messaging apps already installed on your Mac, including WeChat, WeCom, Feishu and DingTalk. Use **＋** to pick others manually. Apps disappear from the panel when they quit and return when you launch them again.

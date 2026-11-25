@@ -305,9 +305,12 @@ struct Panel: View {
                                 .font(.caption).foregroundStyle(.secondary)
                         }
                     }
+                    Text("将通讯应用收进菜单栏，汇总未读数，一键直达未读应用。")
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text("Keep your messaging apps in the menu bar, see their combined unread count, and jump to an app with unread messages.")
+                        .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
                     Text("开发者  xschao")
-                    Link("GitHub · Mac-imbox", destination: URL(string: "https://github.com/uniquechao/Mac-imbox")!)
-                    Link("inboxbar.chaoa.xyz", destination: URL(string: "https://inboxbar.chaoa.xyz")!)
+                    Link("GitHub: uniquechao/Mac-imbox", destination: URL(string: "https://github.com/uniquechao/Mac-imbox")!)
                 }.frame(maxWidth: .infinity, alignment: .leading)
             } else {
             HStack(spacing: 12) {
@@ -350,15 +353,17 @@ struct Panel: View {
     }
 }
 
-final class Delegate: NSObject, NSApplicationDelegate {
+final class Delegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     let board = Board()
     let pop = NSPopover()
+    private var outsideClickMonitor: Any?
     var item: NSStatusItem!
     func applicationDidFinishLaunching(_ notification: Notification) {
         item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         item.button?.target = self
         item.button?.action = #selector(statusClicked)
         item.button?.sendAction(on: [.leftMouseUp, .rightMouseUp])
+        pop.delegate = self
         pop.behavior = .transient
         pop.contentViewController = NSHostingController(rootView: Panel(board: board))
         board.dismissPanel = { [weak self] in self?.pop.close() }
@@ -401,12 +406,25 @@ final class Delegate: NSObject, NSApplicationDelegate {
             }
         }
     }
+    func popoverDidShow(_ notification: Notification) {
+        outsideClickMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown, .otherMouseDown]) { [weak self] _ in
+            self?.pop.performClose(nil)
+        }
+    }
+    func popoverDidClose(_ notification: Notification) {
+        if let monitor = outsideClickMonitor {
+            NSEvent.removeMonitor(monitor)
+            outsideClickMonitor = nil
+        }
+    }
     @objc func toggle() {
         if pop.isShown { pop.close() }
         else if let button = item.button {
             board.refresh()
             board.editing = false
+            NSApp.activate(ignoringOtherApps: true)
             pop.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
+            pop.contentViewController?.view.window?.makeKey()
         }
     }
     func application(_ application: NSApplication, open urls: [URL]) { board.addURLs(urls) }
