@@ -12,6 +12,7 @@ plist="$app/Contents/Info.plist"
 cat > "$root/entitlements.plist" <<'PLIST'
 <plist version="1.0"><dict>
 <key>com.apple.security.app-sandbox</key><true/>
+<key>com.apple.security.network.client</key><true/>
 <key>com.apple.security.files.user-selected.read-only</key><true/>
 </dict></plist>
 PLIST

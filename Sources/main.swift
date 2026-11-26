@@ -307,6 +307,7 @@ struct AppTile: View {
 }
 
 struct Panel: View {
+    @ObservedObject var updates: UpdateChecker
     @ObservedObject var board: Board
     @State private var showingAbout = false
     private let columns = Array(repeating: GridItem(.fixed(58), spacing: 8), count: 4)
@@ -346,6 +347,7 @@ struct Panel: View {
                 }
                 Button { board.add() } label: { Image(systemName: "plus") }.help("添加应用")
                 Menu {
+                    Toggle("自动检查更新", isOn: Binding(get: { updates.enabled }, set: updates.setEnabled))
                     Toggle("登录时启动", isOn: Binding(
                         get: { board.loginStatus == .enabled || board.loginStatus == .requiresApproval },
                         set: { board.setLaunchAtLogin($0) }
@@ -360,6 +362,13 @@ struct Panel: View {
                     Button("退出消息板") { NSApp.terminate(nil) }
                 } label: { Image(systemName: "ellipsis.circle") }.menuStyle(.borderlessButton).fixedSize()
             }.buttonStyle(.borderless)
+            if let update = updates.available {
+                HStack {
+                    Label("发现新版 " + update.version, systemImage: "arrow.down.circle")
+                    Spacer()
+                    Link(update.hasDMG ? "下载更新" : "查看新版", destination: update.url)
+                }
+            }
             if !board.trusted {
                 VStack(alignment: .leading, spacing: 5) {
                     Label("无法读取未读数", systemImage: "lock.fill").font(.headline)
@@ -388,7 +397,9 @@ struct Panel: View {
     }
 }
 
+@MainActor
 final class Delegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
+    let updates = UpdateChecker()
     let board = Board()
     let pop = NSPopover()
     private var outsideClickMonitor: Any?
@@ -400,27 +411,35 @@ final class Delegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         item.button?.sendAction(on: [.leftMouseUp, .rightMouseUp])
         pop.delegate = self
         pop.behavior = .transient
-        pop.contentViewController = NSHostingController(rootView: Panel(board: board))
+        pop.contentViewController = NSHostingController(rootView: Panel(updates: updates, board: board))
+        updates.changed = { [weak self] in self?.update() }
+        updates.schedule()
         board.dismissPanel = { [weak self] in self?.pop.close() }
         board.changed = { [weak self] in self?.update() }
         board.refresh()
         for event in [NSWorkspace.didLaunchApplicationNotification, NSWorkspace.didTerminateApplicationNotification] {
             NSWorkspace.shared.notificationCenter.addObserver(forName: event, object: nil, queue: .main) { [weak self] _ in
-                self?.board.refresh()
+                MainActor.assumeIsolated { self?.board.refresh() }
             }
         }
-        Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in self?.board.refresh() }
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
+            MainActor.assumeIsolated { self?.board.refresh() }
+        }
         update()
         if board.showingGuide { toggle() }
     }
     func update() {
         let count = menuCount(in: board.runningEntries, badges: board.badges)
         let hasBadge = !count.isEmpty
-        item.button?.title = count
-        item.button?.imagePosition = hasBadge ? .imageLeading : .imageOnly
+        item.button?.title = [count, updates.available == nil ? "" : "↑"].filter { !$0.isEmpty }.joined(separator: " ")
+        item.button?.imagePosition = hasBadge || updates.available != nil ? .imageLeading : .imageOnly
         item.button?.setAccessibilityLabel(hasBadge ? "消息板，未读 " + count : "消息板")
+        if let version = updates.available?.version {
+            item.button?.setAccessibilityLabel("消息板，有新版 " + version + (hasBadge ? "，未读 " + count : ""))
+        }
         item.button?.image = hasBadge ? MenuGlyph.attention : MenuGlyph.quiet
         item.button?.toolTip = !board.trusted ? "消息板无法读取未读数，请打开面板授权" : hasBadge ? "左键展开 · 右键打开首个未读应用" : "消息板 · 点击展开"
+        if let version = updates.available?.version { item.button?.toolTip = "有新版 " + version + "，点击消息板查看" }
     }
     @objc func statusClicked() {
         let event = NSApp.currentEvent
@@ -470,7 +489,7 @@ final class Delegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     }
 }
 let app = NSApplication.shared
-let delegate = Delegate()
+let delegate = MainActor.assumeIsolated { Delegate() }
 app.delegate = delegate
 app.setActivationPolicy(.accessory)
 app.run()
