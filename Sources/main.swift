@@ -1,5 +1,6 @@
 import AppKit
 import SwiftUI
+import ServiceManagement
 import ApplicationServices
 import UniformTypeIdentifiers
 
@@ -221,6 +222,24 @@ final class Board: ObservableObject {
         let added = next.filter { !entries.contains($0) }
         sync(added)
     }
+    @Published private(set) var loginStatus = SMAppService.mainApp.status
+    @Published private(set) var loginError = ""
+    func refreshLoginStatus() {
+        loginStatus = SMAppService.mainApp.status
+    }
+    func setLaunchAtLogin(_ enabled: Bool) {
+        loginError = ""
+        do {
+            if enabled {
+                try SMAppService.mainApp.register()
+            } else {
+                try SMAppService.mainApp.unregister()
+            }
+        } catch {
+            loginError = "登录项设置失败：" + error.localizedDescription
+        }
+        refreshLoginStatus()
+    }
     var dismissPanel: (() -> Void)?
     func open(_ entry: Entry) {
         dismissPanel?()
@@ -327,6 +346,14 @@ struct Panel: View {
                 }
                 Button { board.add() } label: { Image(systemName: "plus") }.help("添加应用")
                 Menu {
+                    Toggle("登录时启动", isOn: Binding(
+                        get: { board.loginStatus == .enabled || board.loginStatus == .requiresApproval },
+                        set: { board.setLaunchAtLogin($0) }
+                    ))
+                    if board.loginStatus == .requiresApproval {
+                        Button("前往系统设置允许登录项…") { SMAppService.openSystemSettingsLoginItems() }
+                    }
+                    Divider()
                     Button("重新同步菜单栏") { board.sync(board.entries) }.disabled(board.entries.isEmpty)
                     Button("关于消息板…") { showingAbout = true }
                     Divider()
@@ -349,6 +376,10 @@ struct Panel: View {
                         ForEach(board.runningEntries) { entry in AppTile(entry: entry, board: board) }
                     }
                 }.frame(height: min(4, CGFloat((board.runningEntries.count + 3) / 4)) * 66 - 8)
+            }
+            if !board.loginError.isEmpty { Text(board.loginError).font(.caption).foregroundStyle(.red) }
+            if board.loginStatus == .requiresApproval {
+                Button("登录时启动等待批准 · 打开登录项设置") { SMAppService.openSystemSettingsLoginItems() }
             }
             if !board.importNote.isEmpty { Text(board.importNote).font(.caption).foregroundStyle(.secondary) }
             if !board.error.isEmpty { Text(board.error).font(.caption).foregroundStyle(.red).fixedSize(horizontal: false, vertical: true) }
@@ -424,6 +455,7 @@ final class Delegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     @objc func toggle() {
         if pop.isShown { pop.close() }
         else if let button = item.button {
+            board.refreshLoginStatus()
             board.refresh()
             board.editing = false
             NSApp.activate(ignoringOtherApps: true)
