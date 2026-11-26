@@ -2,7 +2,7 @@
 
 在 Mac 菜单栏看一眼，就知道几个聊天应用一共有多少条未读。左键展开选应用，右键直接打开第一个有未读的应用。
 
-**[下载 Mac-imbox v1.14](https://github.com/uniquechao/Mac-imbox/releases/download/v1.14/Mac-imbox-1.14-universal.dmg)** · [English guide](README.en.md) · [所有版本](https://github.com/uniquechao/Mac-imbox/releases)
+**[下载 Mac-imbox v1.15](https://github.com/uniquechao/Mac-imbox/releases/download/v1.15/Mac-imbox-1.15-universal.dmg)** · [English guide](README.en.md) · [所有版本](https://github.com/uniquechao/Mac-imbox/releases)
 
 适用于 macOS 14 及以上，支持 Apple 芯片和 Intel Mac。
 
@@ -33,6 +33,7 @@
 
 | 我想… | 怎么做 |
 | --- | --- |
+| 登录 Mac 后自动启动消息板 | 打开面板，在 **…** 菜单中勾选 **登录时启动**。再次点击即可关闭。 |
 | 看哪些应用有未读 | 左键点菜单栏的消息板图标。点面板外的空白处即可收起。 |
 | 直接处理未读 | 右键点菜单栏的消息板图标，打开面板中第一个有数字角标的应用。没有可读数字时会展开面板。 |
 | 打开指定应用 | 在面板里左键点它的图标。应用退出后会从面板隐藏，下次启动时自动出现。 |
@@ -75,7 +76,7 @@
 <details>
 <summary>首次打开时，为什么 macOS 提示无法验证开发者？</summary>
 
-v1.14 使用临时签名，未经 Apple 公证。可以在[版本页面](https://github.com/uniquechao/Mac-imbox/releases/tag/v1.14)找到安装包和 SHA-256 校验文件。
+v1.15 使用临时签名，未经 Apple 公证。可以在[版本页面](https://github.com/uniquechao/Mac-imbox/releases/tag/v1.15)找到安装包和 SHA-256 校验文件。
 
 </details>
 

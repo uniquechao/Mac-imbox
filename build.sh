@@ -14,8 +14,8 @@ cat > "$bundle/Info.plist" <<'PLIST'
 <key>CFBundleExecutable</key><string>MessageBoard</string>
 <key>CFBundlePackageType</key><string>APPL</string>
 <key>CFBundleIconFile</key><string>AppIcon.icns</string>
-<key>CFBundleVersion</key><string>15</string>
-<key>CFBundleShortVersionString</key><string>1.14</string>
+<key>CFBundleVersion</key><string>16</string>
+<key>CFBundleShortVersionString</key><string>1.15</string>
 <key>LSUIElement</key><true/>
 </dict></plist>
 PLIST
