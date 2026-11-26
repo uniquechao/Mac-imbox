@@ -2,7 +2,7 @@
 
 See the combined unread count for your messaging apps in the Mac menu bar. Click to choose an app, or right-click to open the first one with unread messages.
 
-**[Download Mac-imbox v1.15](https://github.com/uniquechao/Mac-imbox/releases/download/v1.15/Mac-imbox-1.15-universal.dmg)** · [中文指南](README.md) · [All releases](https://github.com/uniquechao/Mac-imbox/releases)
+**[Download Mac-imbox v1.16](https://github.com/uniquechao/Mac-imbox/releases/download/v1.16/Mac-imbox-1.16-universal.dmg)** · [中文指南](README.md) · [All releases](https://github.com/uniquechao/Mac-imbox/releases)
 
 For macOS 14 or later on Apple silicon and Intel Macs.
 
@@ -33,7 +33,8 @@ Click **＋**, select an app in **Applications**, and click **Open**. In this ex
 
 | To… | Do this |
 | --- | --- |
-| Start Mac-imbox when you log in | Open the panel and enable **登录时启动** (Launch at login) in the **…** menu. Click it again to turn it off. |
+| Start Mac-imbox when you log in | Enabled by default. Turn off **登录时启动** (Launch at login) in the **…** menu. If macOS requests approval, follow the panel link to Login Items. |
+| Get update alerts | By default, Mac-imbox checks GitHub at launch and every six hours while running. When **↑** appears in the menu bar, open the panel to download the update. Turn off **自动检查更新** (Automatic update checks) in the **…** menu. |
 | See which apps have unread messages | Click the Mac-imbox menu bar icon. Click outside the panel to close it. |
 | Jump straight to unread messages | Right-click the menu bar icon. The first app in panel order with a numeric badge opens. If no count is available, the panel opens. |
 | Open a particular app | Click its icon inside the panel. Apps disappear when they quit and return the next time they launch. |
@@ -76,7 +77,7 @@ To enable an app’s Dock badge, check **Allow notifications** and **Badge appli
 <details>
 <summary>Why does macOS say it cannot verify the developer?</summary>
 
-Version 1.15 is ad-hoc signed and has not been notarized by Apple. The [release page](https://github.com/uniquechao/Mac-imbox/releases/tag/v1.15) includes the DMG and its SHA-256 checksum.
+Version 1.16 is ad-hoc signed and has not been notarized by Apple. The [release page](https://github.com/uniquechao/Mac-imbox/releases/tag/v1.16) includes the DMG and its SHA-256 checksum.
 
 </details>
 

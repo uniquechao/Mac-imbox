@@ -227,7 +227,21 @@ final class Board: ObservableObject {
     func refreshLoginStatus() {
         loginStatus = SMAppService.mainApp.status
     }
+    func applyDefaultLoginItem() {
+        let defaults = UserDefaults.standard
+        guard !defaults.bool(forKey: "didConfigureLoginItem") else { return }
+        // Register the installed copy, never the copy on the read-only installer.
+        guard let volume = try? Bundle.main.bundleURL.resourceValues(forKeys: [.volumeIsReadOnlyKey]),
+              volume.volumeIsReadOnly == false else { return }
+        switch SMAppService.mainApp.status {
+        case .notRegistered, .notFound:
+            setLaunchAtLogin(true)
+        default:
+            defaults.set(true, forKey: "didConfigureLoginItem")
+        }
+    }
     func setLaunchAtLogin(_ enabled: Bool) {
+        UserDefaults.standard.set(true, forKey: "didConfigureLoginItem")
         loginError = ""
         do {
             if enabled {
@@ -413,6 +427,7 @@ final class Delegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         pop.behavior = .transient
         pop.contentViewController = NSHostingController(rootView: Panel(updates: updates, board: board))
         updates.changed = { [weak self] in self?.update() }
+        board.applyDefaultLoginItem()
         updates.schedule()
         board.dismissPanel = { [weak self] in self?.pop.close() }
         board.changed = { [weak self] in self?.update() }

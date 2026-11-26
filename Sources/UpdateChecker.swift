@@ -30,7 +30,7 @@ final class UpdateChecker: ObservableObject {
         }
     }
 
-    @Published private(set) var enabled = UserDefaults.standard.bool(forKey: "automaticUpdateChecks")
+    @Published private(set) var enabled = (UserDefaults.standard.object(forKey: "automaticUpdateChecks") as? Bool) ?? true
     @Published private(set) var available: (version: String, url: URL, hasDMG: Bool)?
     var changed: (() -> Void)?
     private var task: Task<Void, Never>?
